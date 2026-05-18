@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha AI — The AI-Powered Meme Coin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --neon-blue: #00d4ff;
+    --neon-purple: #b44aff;
+    --neon-green: #00ff88;
+    --dark: #0a0a1a;
+    --darker: #050510;
+  }
+
+  body {
+    background: var(--darker);
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+  }
+
+  .bg-grid {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 0;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(50px,50px); }
+  }
+
+  .floating-particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    animation: float 8s infinite ease-in-out;
+    opacity: 0.4;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.2; }
+    25% { transform: translateY(-80px) translateX(30px); opacity: 0.8; }
+    50% { transform: translateY(-40px) translateX(-20px); opacity: 0.4; }
+    75% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 0;
+  }
+
+  .hero-ape {
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 4px solid rgba(0,0,0,0.6);
+    object-fit: cover;
+    object-position: center top;
+    margin-bottom: 25px;
+    animation: pulse-ring 3s infinite ease-in-out;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5), 0 0 60px rgba(0,0,0,0.3);
+  }
+
+  .tagline {
+    font-size: 18px;
+    color: var(--neon-green);
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 56px;
+    font-weight: 900;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #fff, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 15px 40px;
+    border: 2px solid var(--neon-blue);
+    background: transparent;
+    color: var(--neon-blue);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn:hover {
+    background: var(--neon-blue);
+    color: var(--dark);
+    box-shadow: 0 0 30px rgba(0,212,255,0.5);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    color: #fff;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 40px rgba(180,74,255,0.5);
+    color: #fff;
+  }
+
+  /* Ape Gallery */
+  .ape-gallery {
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  .ape-gallery h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .ape-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .ape-card {
+    width: 280px;
+    background: rgba(0,212,255,0.03);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 20px;
+    padding: 20px;
+    transition: all 0.3s;
+  }
+
+  .ape-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 15px 50px rgba(0,212,255,0.15);
+  }
+
+  .ape-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 15px;
+  }
+
+  .ape-card p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    padding: 40px 0;
+    border-top: 1px solid rgba(0,212,255,0.1);
+    border-bottom: 1px solid rgba(0,212,255,0.1);
+    margin: 40px 0;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--neon-blue);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 5px;
+  }
+
+  /* Section */
+  .section { padding: 80px 0; }
+
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 50px;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Features */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+
+  .feature-card {
+    background: rgba(0,212,255,0.03);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 16px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .feature-card:hover {
+    border-color: rgba(0,212,255,0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0,212,255,0.1);
+  }
+
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon { font-size: 40px; margin-bottom: 20px; }
+
+  .feature-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: var(--neon-blue);
+  }
+
+  .feature-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+
+  /* How to buy */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+  }
+
+  .step {
+    text-align: center;
+    padding: 30px 20px;
+    position: relative;
+  }
+
+  .step-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(0,212,255,0.1);
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .step h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    color: var(--neon-blue);
+    margin: 40px 0 10px;
+    position: relative;
+  }
+
+  .step p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+    position: relative;
+  }
+
+  /* Tokenomics */
+  .tokenomics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .token-item {
+    background: rgba(0,212,255,0.03);
+    border: 1px solid rgba(0,212,255,0.1);
+    border-radius: 12px;
+    padding: 25px 15px;
+    text-align: center;
+  }
+
+  .token-percent {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--neon-green);
+  }
+
+  .token-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Contract */
+  .contract-box {
+    background: rgba(0,212,255,0.03);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .contract-box p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 10px;
+  }
+
+  .contract-address {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--neon-blue);
+    word-break: break-all;
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .contract-address:hover { background: rgba(0,212,255,0.1); }
+
+  /* Social */
+  .social-section {
+    text-align: center;
+    padding: 60px 0;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+
+  .social-link {
+    width: 60px; height: 60px;
+    border: 2px solid rgba(0,212,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--neon-blue);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .social-link:hover {
+    background: var(--neon-blue);
+    color: var(--dark);
+    box-shadow: 0 0 30px rgba(0,212,255,0.4);
+    transform: translateY(-3px);
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid rgba(0,212,255,0.1);
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+  }
+
+  .footer .tagline {
+    font-size: 14px;
+    color: rgba(255,255,255,0.3);
+    margin-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 36px; }
+    .tagline { font-size: 14px; }
+    .stats-bar { gap: 30px; }
+    .section-title { font-size: 24px; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .hero-ape { width: 160px; height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="floating-particles" id="particles"></div>
+
+<div class="container">
+
+  <!-- HERO with ape image -->
+  <section class="hero">
+    <img src="mpavo99hnc9pyl.jpeg" alt="Alpha AI Mascot" class="hero-ape" />
+    <p class="tagline">AI-Powered Meme Coin</p>
+    <h1>ALPHA AI</h1>
+    <p class="subtitle">
+      The alpha is artificial but the gains are real.<br>
+      Built by apes, powered by AI, fueled by diamond hands.
+    </p>
+    <div class="cta-buttons">
+      <a href="#buy" class="btn btn-primary">Buy Alpha AI</a>
+      <a href="#gallery" class="btn">Ape Gallery</a>
+    </div>
+  </section>
+
+  <!-- APE GALLERY -->
+  <section class="ape-gallery" id="gallery">
+    <h2>Meet The Alpha Apes</h2>
+    <div class="ape-grid">
+      <div class="ape-card">
+        <img src="mpavdpk903jy6i.jpeg" alt="Alpha Ape #1" />
+        <p>Alpha Ape — OG Founder</p>
+      </div>
+      <div class="ape-card">
+        <img src="mpavh2hkcu6b3e.jpeg" alt="Alpha Ape #2" />
+        <p>Alpha Ape — AI Overlord</p>
+      </div>
+      <div class="ape-card">
+        <img src="mpavl47uvsujlg.jpeg" alt="Alpha Ape #3" />
+        <p>Alpha Ape — Diamond Hands</p>
+      </div>
+      <div class="ape-card">
+        <img src="mpasqzwxnzxtit.jpeg" alt="Alpha Ape #4" />
+        <p>Alpha Ape — AI Powered</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value">1B</div>
+      <div class="stat-label">Total Supply</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">0%</div>
+      <div class="stat-label">Tax</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">LP 🔥</div>
+      <div class="stat-label">Liquidity</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">Renounced</div>
+      <div class="stat-label">Contract</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <h2 class="section-title">Why Alpha AI?</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Agent Buybacks</h3>
+        <p>Our AI agent automatically buys back and burns tokens using revenue. Scarcity meets intelligence.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🦍</div>
+        <h3>Community Owned</h3>
+        <p>Renounced contract. No dev wallets. No rug pulls. Just apes and AI working together.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Zero Tax</h3>
+        <p>0% buy tax. 0% sell tax. Keep every sat. Trade freely without fees eating your gains.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Locked Liquidity</h3>
+        <p>LP tokens locked for 100 years. The pool is permanent. We're not going anywhere.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3>Cash Back Rewards</h3>
+        <p>Creator rewards go directly to traders. Hold and trade to earn passive rewards.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>IPFS Hosted</h3>
+        <p>This site runs on IPFS — decentralized, uncensorable, and permanent. Just like the coin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO BUY -->
+  <section class="section" id="buy">
+    <h2 class="section-title">How To Buy</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-number">01</span>
+        <h3>Get Phantom Wallet</h3>
+        <p>Download Phantom wallet and create your account. It takes 2 minutes.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">02</span>
+        <h3>Fund with SOL</h3>
+        <p>Buy SOL on any exchange and send it to your Phantom wallet address.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">03</span>
+        <h3>Go to Raydium</h3>
+        <p>Connect your Phantom wallet to Raydium.io and paste the contract address.</p>
+      </div>
+      <div class="step">
+        <span class="step-number">04</span>
+        <h3>Swap SOL → αAI</h3>
+        <p>Swap your SOL for Alpha AI tokens. Set slippage to 5-8% and confirm.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKENOMICS -->
+  <section class="section">
+    <h2 class="section-title">Tokenomics</h2>
+    <div class="tokenomics-grid">
+      <div class="token-item">
+        <div class="token-percent">40%</div>
+        <div class="token-label">Liquidity Pool</div>
+      </div>
+      <div class="token-item">
+        <div class="token-percent">30%</div>
+        <div class="token-label">Community Airdrop</div>
+      </div>
+      <div class="token-item">
+        <div class="token-percent">15%</div>
+        <div class="token-label">Marketing</div>
+      </div>
+      <div class="token-item">
+        <div class="token-percent">10%</div>
+        <div class="token-label">AI Agent Reserve</div>
+      </div>
+      <div class="token-item">
+        <div class="token-percent">5%</div>
+        <div class="token-label">CEX Listing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTRACT -->
+  <section class="section">
+    <h2 class="section-title">Contract Address</h2>
+    <div class="contract-box">
+      <p>Click to copy — Always verify before buying</p>
+      <div class="contract-address" onclick="copyContract()" id="contractAddr">
+        COMING_SOON_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      </div>
+      <p style="margin-top: 15px; font-size: 11px; color: rgba(255,255,255,0.3);">
+        ⚠️ Replace with your actual contract address after creating the token
+      </p>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="social-section">
+    <h2 class="section-title">Join The Pack</h2>
+    <p style="color: rgba(255,255,255,0.4); font-size: 13px;">Get alpha before the AI does</p>
+    <div class="social-links">
+      <a href="#" class="social-link" title="Telegram">📡</a>
+      <a href="#" class="social-link" title="Twitter">𝕏</a>
+      <a href="#" class="social-link" title="Discord">💬</a>
+      <a href="#" class="social-link" title="DexScreener">📊</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>© 2025 Alpha AI — Decentralized & IPFS Hosted</p>
+    <p class="tagline">"The only coin smarter than its holders"</p>
+  </div>
+
+</div>
+
+<script>
+  const particlesContainer = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 8 + 's';
+    p.style.animationDuration = (6 + Math.random() * 6) + 's';
+    if (Math.random() > 0.5) p.style.background = 'var(--neon-purple)';
+    particlesContainer.appendChild(p);
+  }
+
+  function copyContract() {
+    const addr = document.getElementById('contractAddr').innerText;
+    navigator.clipboard.writeText(addr).then(() => {
+      const el = document.getElementById('contractAddr');
+      const orig = el.innerText;
+      el.innerText = '✅ Copied!';
+      setTimeout(() => el.innerText = orig, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>
